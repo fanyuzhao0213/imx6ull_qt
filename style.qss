@@ -1,0 +1,111 @@
+/* ===========================
+ * 左侧面板样式
+ * =========================== */
+#widget_left {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1, /* 从上到下渐变 */
+        stop: 0 #3498db,             /* 上方亮蓝色 - 更醒目的操作色 */
+        stop: 1 #2980b9              /* 下方深蓝色 - 专业感 */
+    );
+    border-top-left-radius: 15px;    /* 左上圆角 */
+    border-bottom-left-radius: 15px; /* 左下圆角 */
+    border-top-right-radius: 15px;   /* 右上圆角 */
+    border-bottom-right-radius: 15px; /* 右下圆角 */
+    border: 2px solid #1f618d;       /* 添加边框增强层次感 */
+    padding: 10px;                   /* 增加内边距 */
+}
+
+
+/* ===========================
+ * 通用按钮基础样式（默认文字）
+ * =========================== */
+#smartBtn, #musicBtn, #photoBtn {
+    border: none;
+    border-radius: 12px;
+    min-width: 90px;
+    max-width: 90px;
+    min-height: 50px;
+    max-height: 50px;
+    background-color: rgb(22, 140, 53);  /* 默认绿色背景 */
+    color: white;                        /* 默认文字颜色 */
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 50px;                   /* 垂直居中文字 */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* ===========================
+ * 按下/选中状态（显示图片，隐藏文字）
+ * =========================== */
+#smartBtn:checked, #smartBtn:pressed {
+    border-image: url(:/src/smart/smart.png) 0 0 0 0 stretch stretch;
+    background-color: transparent;   /* 背景用图覆盖 */
+    color: transparent;              /* 隐藏文字 */
+}
+
+#musicBtn:checked, #musicBtn:pressed {
+    border-image: url(:/src/smart/music.png) 0 0 0 0 stretch stretch;
+    background-color: transparent;
+    color: transparent;
+}
+
+#photoBtn:checked, #photoBtn:pressed {
+    border-image: url(:/src/smart/photo.png) 0 0 0 0 stretch stretch;
+    background-color: transparent;
+    color: transparent;
+}
+
+/* ===========================
+ * LED / FAN / ALARM 按钮
+ * =========================== */
+#ledBtn, #fanBtn, #alarmBtn {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    min-width: 200px;
+    min-height: 160px;
+    max-width: 200px;
+    max-height: 160px;
+    qproperty-iconSize: 200px 160px;
+}
+
+
+/* ===========================
+ * 控制面板标签字体
+ * =========================== */
+#label_led, #label_alarm, #label_fan {
+    color: #2c3e50;
+    font-family: "Segoe UI", "Microsoft YaHei", "Arial", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    qproperty-alignment: AlignCenter;
+}
+
+#smart_page {
+    /* 背景：浅灰渐变，简洁现代 */
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #f9f9fb,
+        stop:1 #e6e9ef
+    );
+
+    border: 2px solid transparent;
+    border-radius: 16px;
+
+    /* 渐变描边（浅色霓虹感） */
+    border-image: qlineargradient(
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #42a5f5,   /* 天蓝 */
+        stop: 0.5 #7e57c2, /* 淡紫 */
+        stop: 1 #ef5350    /* 玫红 */
+    ) 1;
+
+    /* 字体颜色调深，保证可读性 */
+    color: #2c3e50;
+}
+
+
+

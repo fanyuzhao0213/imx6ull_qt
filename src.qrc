@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/smart/alarm_off.png</file>
+        <file>src/smart/alarm_on.png</file>
+        <file>src/smart/cloud_pressed.png</file>
+        <file>src/smart/cloud_unpressed.png</file>
+        <file>src/smart/down.png</file>
+        <file>src/smart/fan_off.png</file>
+        <file>src/smart/fan_on.png</file>
+        <file>src/smart/light_off.png</file>
+        <file>src/smart/light_on.png</file>
+        <file>src/smart/mario.png</file>
+        <file>src/smart/mqtt_beijing.png</file>
+        <file>src/smart/mushroom_life.png</file>
+        <file>src/smart/music.png</file>
+        <file>src/smart/paper_bowser.png</file>
+        <file>src/smart/photo.png</file>
+        <file>src/smart/smart.png</file>
+        <file>src/smart/switch_off.png</file>
+        <file>src/smart/switch_on.png</file>
+        <file>src/smart/uart_pressed.png</file>
+        <file>src/smart/uart_unpressed.png</file>
+        <file>src/smart/window.png</file>
+        <file>src/smart/window_beijing.png</file>
+        <file>src/smart/window_beijing_resized.png</file>
+        <file>style.qss</file>
+    </qresource>
+</RCC>
