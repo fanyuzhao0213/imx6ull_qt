@@ -6,16 +6,13 @@
 smartDeviceModule::smartDeviceModule(QObject *parent)
     : QObject(parent), beepCount(0), beepTarget(0), beepState(false), interval(500)
 {
-    // 设置各外设 sysfs 路径
-    ledPath   = "/sys/class/leds/sys-led/";
-    alarmPath = "/sys/class/alarm/alarm0/";  // 如果系统有 ALARM 外设
-    beepPath  = "/sys/class/leds/beep/";
-
     // 初始化 LED 为手动控制
     setLedTrigger("none");
 
     // 定时器用于控制 BEEP 闹钟节奏
     connect(&timer, &QTimer::timeout, this, &smartDeviceModule::toggleBeep);
+    // 定时器用于ap3216C read data
+    connect(&readAp3216c_timer, &QTimer::timeout, this, &smartDeviceModule::timer_timeout);
 }
 
 smartDeviceModule::~smartDeviceModule()
@@ -24,6 +21,8 @@ smartDeviceModule::~smartDeviceModule()
     turnLedOff();
     turnAlarmOff();
     beepOff();
+    if (readAp3216c_timer.isActive())
+        readAp3216c_timer.stop();
 }
 
 /**
@@ -52,17 +51,20 @@ bool smartDeviceModule::writeSysFile(const QString &path, const QString &value)
 // ========================
 void smartDeviceModule::setLedTrigger(const QString &mode)
 {
-    writeSysFile(ledPath + "trigger", mode);
+    QString path = QString(ledPath) + "trigger";
+    writeSysFile(path, mode);
 }
 
 void smartDeviceModule::turnLedOn()
 {
-    writeSysFile(ledPath + "brightness", "1");
+    QString path = QString(ledPath) + "brightness";
+    writeSysFile(path, "1");
 }
 
 void smartDeviceModule::turnLedOff()
 {
-    writeSysFile(ledPath + "brightness", "0");
+    QString path = QString(ledPath) + "brightness";
+    writeSysFile(path, "0");
 }
 
 // ========================
@@ -70,12 +72,12 @@ void smartDeviceModule::turnLedOff()
 // ========================
 void smartDeviceModule::turnAlarmOn()
 {
-    writeSysFile(alarmPath + "enable", "1");
+    writeSysFile(QString(alarmPath) + "enable", "1");
 }
 
 void smartDeviceModule::turnAlarmOff()
 {
-    writeSysFile(alarmPath + "enable", "0");
+    writeSysFile(QString(alarmPath) + "enable", "0");
 }
 
 // ========================
@@ -83,12 +85,12 @@ void smartDeviceModule::turnAlarmOff()
 // ========================
 void smartDeviceModule::beepOn()
 {
-    writeSysFile(beepPath + "brightness", "1");
+    writeSysFile(QString(beepPath) + "brightness", "1");
 }
 
 void smartDeviceModule::beepOff()
 {
-    writeSysFile(beepPath + "brightness", "0");
+    writeSysFile(QString(beepPath) + "brightness", "0");
 }
 
 // ========================
@@ -132,4 +134,69 @@ void smartDeviceModule::toggleBeep()
     }
 
     beepCount++;
+}
+
+
+/*AP3216C*/
+/**
+ * @brief 启动或停止传感器数据采集
+ * @param start true=启动，false=停止
+ */
+void smartDeviceModule::setCapture(bool start)
+{
+    if (start)
+        readAp3216c_timer.start(1000);  // 1秒更新一次
+    else
+        readAp3216c_timer.stop();
+}
+
+/* 模拟读取ALS数据 */
+QString smartDeviceModule::readAlsData()
+{
+    return readSensorValue(AP3216C_ALS_PATH);
+}
+
+/* 模拟读取PS数据 */
+QString smartDeviceModule::readPsData()
+{
+    return readSensorValue(AP3216C_PS_PATH);
+}
+
+/* 模拟读取IR数据 */
+QString smartDeviceModule::readIrData()
+{
+    return readSensorValue(AP3216C_IR_PATH);
+}
+
+/* 定时器回调：读取传感器并发射信号 */
+void smartDeviceModule::timer_timeout()
+{
+
+    Ap3216cData data;
+    data.als = readAlsData();
+    data.ps  = readPsData();
+    data.ir  = readIrData();
+    emit ap3216cDataUpdated(data);  // 发射结构体数据
+}
+
+
+// 通用文件读取
+QString smartDeviceModule::readSensorValue(const QString &filePath)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Open file error:" << filePath;
+        return "open file error!";
+    }
+
+    QByteArray buf = file.readAll();  // 读取整个文件内容
+    file.close();
+
+    if (buf.isEmpty()) {
+        qDebug() << "Read file error or file empty:" << filePath;
+        return "read data error!";
+    }
+
+    QString value = QString(buf).trimmed();  // 去掉换行符和空白
+    return value;
 }

@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui serialport virtualkeyboard
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,11 +18,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    smartdevicemodule.cpp
+    serialmodule.cpp \
+    smartdevicemodule.cpp \
+    widgets/arcgraph/arcgraph.cpp \
+    widgets/glowtext/glowtext.cpp \
+    slidepage/slidepage.cpp
 
 HEADERS += \
     mainwindow.h \
-    smartdevicemodule.h
+    serialmodule.h \
+    smartdevicemodule.h \
+    widgets/arcgraph/arcgraph.h \
+    widgets/glowtext/glowtext.h \
+    slidepage/slidepage.h
 
 FORMS += \
     mainwindow.ui

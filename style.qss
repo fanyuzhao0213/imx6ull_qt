@@ -1,48 +1,51 @@
+
 /* ===========================
- * 左侧面板样式
+ * 左侧面板科技感风格
  * =========================== */
-#widget_left {
+/* ===========================
+ * 左侧面板 - 紫色科技感
+ * =========================== */
+ #widget_left {
     background: qlineargradient(
-        x1: 0, y1: 0, x2: 0, y2: 1, /* 从上到下渐变 */
-        stop: 0 #3498db,             /* 上方亮蓝色 - 更醒目的操作色 */
-        stop: 1 #2980b9              /* 下方深蓝色 - 专业感 */
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #f6e6ff,  /* 上浅紫 */
+        stop:1 #e3c8ff   /* 下稍深紫 */
     );
-    border-top-left-radius: 15px;    /* 左上圆角 */
-    border-bottom-left-radius: 15px; /* 左下圆角 */
-    border-top-right-radius: 15px;   /* 右上圆角 */
-    border-bottom-right-radius: 15px; /* 右下圆角 */
-    border: 2px solid #1f618d;       /* 添加边框增强层次感 */
-    padding: 10px;                   /* 增加内边距 */
+    border-radius: 12px;
+    border: 2px solid #9b7ed4;
+    padding: 15px;
 }
 
-
-/* ===========================
- * 通用按钮基础样式（默认文字）
- * =========================== */
-#smartBtn, #musicBtn, #photoBtn {
+/* 左侧按钮 */
+#smartBtn, #musicBtn, #photoBtn, #uartBtn{
     border: none;
     border-radius: 12px;
     min-width: 90px;
     max-width: 90px;
     min-height: 50px;
     max-height: 50px;
-    background-color: rgb(22, 140, 53);  /* 默认绿色背景 */
-    color: white;                        /* 默认文字颜色 */
+    background-color: #ffffff;
+    color: #5c3b9d;                   /* 紫色文字 */
     font-size: 16px;
     font-weight: 600;
     text-align: center;
-    line-height: 50px;                   /* 垂直居中文字 */
+    line-height: 50px;
     background-repeat: no-repeat;
     background-position: center;
+    margin-bottom: 8px;
 }
 
-/* ===========================
- * 按下/选中状态（显示图片，隐藏文字）
- * =========================== */
+/* 悬浮效果 */
+#smartBtn:hover, #musicBtn:hover, #photoBtn:hover, #uartBtn:hover {
+    background-color: #e6d1ff;       /* 浅紫高亮 */
+    color: #fff;
+}
+
+/* 点击/选中效果 */
 #smartBtn:checked, #smartBtn:pressed {
     border-image: url(:/src/smart/smart.png) 0 0 0 0 stretch stretch;
-    background-color: transparent;   /* 背景用图覆盖 */
-    color: transparent;              /* 隐藏文字 */
+    background-color: transparent;
+    color: transparent;
 }
 
 #musicBtn:checked, #musicBtn:pressed {
@@ -56,6 +59,51 @@
     background-color: transparent;
     color: transparent;
 }
+
+#uartBtn:checked, #uartBtn:pressed {
+    border-image: url(:/src/smart/uart_pressed.png) 0 0 0 0 stretch stretch;
+    background-color: transparent;
+    color: transparent;
+}
+
+
+/* ==================== IDLE 页面整体背景 ==================== */
+#progressBar_start {
+    background-color: #40e1de;  /* 背景色 */
+}
+
+/* ==================== 提示文字 ==================== */
+#label_start {
+    background-color: #265d0a;          /* 背景色 */
+    color: #ffffff;                      /* 字体颜色 */
+    font: bold 16pt "Microsoft YaHei";   /* 字体加粗 + 大小 */
+    border: 2px solid #3498db;           /* 边框颜色 */
+    border-radius: 12px;                  /* 圆角 */
+    min-height: 30px;
+    max-height: 40px;
+    qproperty-alignment: 'AlignCenter';  /* 文字居中 */
+}
+
+/* ==================== ProgressBar ==================== */
+#progressBar_start {
+    border: 2px solid #054d4a;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    text-align: center;
+    color: #ecf0f1;
+    font: bold 12pt "Microsoft YaHei";
+    min-height: 20px;
+    max-height: 20px;
+}
+
+#progressBar_start::chunk {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #6dd5fa, stop:1 #2980b9
+    );
+    border-radius: 8px;
+}
+
 
 /* ===========================
  * LED / FAN / ALARM 按钮
@@ -107,5 +155,478 @@
     color: #2c3e50;
 }
 
+/* ==============================================
+   widget_top: 控制灯、闹钟等 - 浅色背景
+   ============================================== */
+#widget_top {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #f5f5f5,   /* 顶部浅灰 */
+                                stop:1 #e0e0e0);  /* 底部稍深 */
+    border-radius: 15px;
+    border: 1px solid #dcdcdc;
+}
 
+/* ==============================================
+   widget_bottom: 传感器数据 - 深色背景
+   ============================================== */
+#widget_bottom {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #1f1f1f,   /* 顶部深灰 */
+                                stop:1 #121212);  /* 底部更深 */
+    border-radius: 15px;
+    border: 1px solid #333333;
+}
+
+/* ==================== QGroupBox 样式 ==================== */
+QGroupBox {
+    border: 2px solid #3498db;       /* 默认边框颜色：蓝色 */
+    border-radius: 10px;             /* 圆角 */
+    margin-top: 20px;                /* 给标题留空间 */
+    background-color: #f7f9fc;       /* 柔和背景色 */
+    padding: 10px;                   /* 内边距 */
+}
+
+/* 标题 */
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center; /* 标题居中 */
+    padding: 4px 12px;
+
+    font-size: 20pt;                  /* 大字体 */
+    font-weight: bold;
+    font-family: "Microsoft YaHei";
+
+    color: #ffffff;                   /* 标题文字颜色 */
+    background-color: #1e0a5d;        /* 深蓝背景 */
+    border: 1px solid #3498db;
+    border-radius: 6px;
+}
+
+/* 悬停效果 */
+QGroupBox:hover {
+    border: 2px solid #2980b9;       /* 悬停边框变深 */
+    background-color: #3b2166;
+}
+
+/* ==================== QLabel 样式 ==================== */
+#label_als, #label_ps, #label_ir {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #34495e;
+    padding: 2px;
+}
+/* ==================== QLCDNumber 样式 ==================== */
+QLCDNumber {
+    background-color: #2c3e50;
+    color: #46378a;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+/* ==================== 传感器专属颜色 ==================== */
+/* ALS 环境光 - 蓝色系 */
+#lcdNumber_als {
+    border: 2px solid #3498db;
+    color: #3498db;
+}
+
+/* PS 接近传感器 - 绿色系 */
+#lcdNumber_ps {
+    border: 2px solid #27ae60;
+    color: #27ae60;
+}
+
+/* IR 红外传感器 - 橙色系 */
+#lcdNumber_ir {
+    border: 2px solid #e67e22;
+    color: #e67e22;
+}
+
+#label_als, #label_ps, #label_ir {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #ecf0f1; /* 浅灰色，适合深色背景 */
+    padding: 2px;
+}
+
+
+/* ALS 环境光 - 蓝色系 */
+#label_als {
+    color: #5dade2;  /* 浅蓝色 */
+}
+
+/* PS 接近传感器 - 绿色系 */
+#label_ps {
+    color: #2ecc71;  /* 浅绿色 */
+}
+
+/* IR 红外传感器 - 橙色系 */
+#label_ir {
+    color: #f39c12;  /* 浅橙色 */
+}
+
+/* ==================== 六轴传感器样式 ==================== */
+/* 加速度 - 蓝色系 */
+#lcdNumber_ax, #lcdNumber_ay, #lcdNumber_az {
+    border: 2px solid #3498db;
+    color: #3498db;
+}
+/* P角速度 - 绿色系 */
+#lcdNumber_gx, #lcdNumber_gy, #lcdNumber_gz {
+    border: 2px solid #27ae60;
+    color: #27ae60;
+}
+
+
+/* ==================== QLabel 样式 ==================== */
+#label_ax, #label_ay, #label_az, #label_gx, #label_gy, #label_gz{
+    font-size: 12pt;
+    font-weight: bold;
+    color: #34495e;
+    padding: 2px;
+}
+
+#label_ax, #label_ay, #label_az, #label_gx, #label_gy, #label_gz {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #ecf0f1; /* 浅灰色，适合深色背景 */
+    padding: 2px;
+}
+
+/* 加速度 - 蓝色系 */
+#label_ax, #label_ay, #label_az {
+    color: #5dade2;  /* 浅蓝色 */
+}
+
+/* P角速度 - 绿色系 */
+#label_gx, #label_gy, #label_gz {
+    color: #2ecc71;  /* 浅绿色 */
+}
+
+
+/* ========== 游戏风格按钮样式 ========== */
+#widget_bottom  {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #a8edea,   /* 上部浅绿 */
+        stop:1 #fed6e3    /* 下部粉白渐变 */
+    );
+    border: 2px solid #7ec8b5;     /* 清新绿色边框 */
+    border-radius: 16px;            /* 圆角 */
+    color: #333;                     /* 文字颜色 */
+    font: bold 16px "Microsoft YaHei"; /* 加粗字体 */
+    padding: 8px 20px;              /* 内边距 */
+    min-width: 100px;
+    min-height: 40px;
+}
+
+/* 悬浮效果：轻微放大 + 颜色变亮 */
+QPushButton:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #baf4ef,
+        stop:1 #ffe4eb
+    );
+    border: 2px solid #6fb9a3;      /* 悬浮边框颜色稍深 */
+}
+
+/* 点击效果：按钮下陷 */
+QPushButton:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #9cd7d3,
+        stop:1 #f5cbd8
+    );
+}
+
+/* 禁用状态 */
+QPushButton:disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    border: 2px solid #ccc;
+}
+
+
+/* ========== 串口设置窗口 ========== */
+#widget_set {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #e8f9f1,  /* 上浅绿色 */
+        stop:1 #c8f4e4   /* 下稍深绿色 */
+    );
+    border: 2px solid #7ec8b5;
+    border-radius: 12px;
+}
+
+/* 窗口标题 */
+#widget_set QLabel#title {
+    color: #2c7a7b;
+    font: bold 18px "Microsoft YaHei";
+}
+
+/* 串口设置区的下拉框 */
+#widget_set QComboBox {
+    border: 1px solid #7ec8b5;
+    border-radius: 6px;
+    padding: 4px 8px;
+    background: #ffffff;
+    selection-background-color: #b9f4e8;
+}
+
+/* 串口设置区的按钮 */
+/* ===========================
+ * 串口按钮默认（关闭状态）
+ * =========================== */
+ #widget_set QPushButton {
+    border: 2px solid #9cd7d3;
+    border-radius: 10px;
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #baf4ef,
+        stop:1 #ffe4eb
+    );
+    color: #333;
+    font: bold 14px "Microsoft YaHei";
+    min-width: 80px;
+    min-height: 40px;
+}
+
+/* 悬浮效果（关闭状态） */
+#widget_set QPushButton:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #a0f0e5,
+        stop:1 #ffc2d0
+    );
+}
+
+/* 按下效果（关闭状态） */
+#widget_set QPushButton:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #89d1c9,
+        stop:1 #f5aabb
+    );
+}
+
+/* ===========================
+ * 串口打开状态（checked 或 toggled）
+ * =========================== */
+#widget_set QPushButton:checked {
+    border: 2px solid #4dbd96;
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #7ef3c9,   /* 上方亮绿 */
+        stop:1 #49c18d    /* 下方深绿 */
+    );
+    color: #fff;
+}
+
+/* 悬浮效果（打开状态） */
+#widget_set QPushButton:checked:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #9ff8d6,
+        stop:1 #5acfa1
+    );
+}
+
+/* 按下效果（打开状态） */
+#widget_set QPushButton:checked:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3db07a,
+        stop:1 #289d67
+    );
+}
+
+/* ========== 串口控制窗口 ========== */
+#widget_control {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #e6f2ff,  /* 上浅蓝色 */
+        stop:1 #cce4ff   /* 下稍深蓝色 */
+    );
+    border: 2px solid #5d96d3;
+    border-radius: 12px;
+}
+
+/* 窗口标题 */
+#widget_control QLabel#title {
+    color: #2a4b8d;
+    font: bold 18px "Microsoft YaHei";
+}
+
+/* ========== 公共基础样式 ========== */
+/* ========== 公共基础样式 ========== */
+#Btn_1, #Btn_2, #Btn_3, #Btn_4, #Btn_5,
+#Btn_6, #Btn_7, #Btn_8, #Btn_9, #Btn_10 {
+    border-radius: 16px;
+    color: #fff;                           /* 白色文字 */
+    font: bold 16px "Microsoft YaHei";
+    padding: 8px 20px;
+    min-width: 100px;
+    min-height: 40px;
+}
+
+/* ========== 前5个按钮 蓝绿色科技系 Btn_1 ~ Btn_5 ========== */
+#Btn_1, #Btn_2, #Btn_3, #Btn_4, #Btn_5 {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3fa2d0,   /* 上中蓝 */
+        stop:1 #1f7ea1    /* 下深蓝 */
+    );
+    border: 2px solid #2b90b7;
+}
+
+/* 悬浮效果 */
+#Btn_1:hover, #Btn_2:hover, #Btn_3:hover, #Btn_4:hover, #Btn_5:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #4fb8e3,
+        stop:1 #2b8fb3
+    );
+    border: 2px solid #36a2c8;
+}
+
+/* 点击下陷 */
+#Btn_1:pressed, #Btn_2:pressed, #Btn_3:pressed, #Btn_4:pressed, #Btn_5:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2b7a9e,
+        stop:1 #16617f
+    );
+}
+
+/* ========== 后5个按钮 紫青科技系 Btn_6 ~ Btn_10 ========== */
+#Btn_6, #Btn_7, #Btn_8, #Btn_9, #Btn_10 {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #8c5ed3,   /* 上中紫 */
+        stop:1 #5e2cae    /* 下深紫 */
+    );
+    border: 2px solid #7840c0;
+}
+
+/* 悬浮效果 */
+#Btn_6:hover, #Btn_7:hover, #Btn_8:hover, #Btn_9:hover, #Btn_10:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #a172e0,
+        stop:1 #702fc0
+    );
+    border: 2px solid #8a50d5;
+}
+
+/* 点击下陷 */
+#Btn_6:pressed, #Btn_7:pressed, #Btn_8:pressed, #Btn_9:pressed, #Btn_10:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #6a38a8,
+        stop:1 #451f7a
+    );
+}
+
+
+
+/* ========== 串口信息窗口 ========== */
+/* ===========================
+ * 串口信息窗口 - 蓝色科技感
+ * =========================== */
+ #widget_info {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #f5f7fa,   /* 上浅灰蓝 */
+        stop:1 #e4e9f0    /* 下淡灰蓝 */
+    );
+    border: 1px solid #5d96d3;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+/* 窗口标题 */
+#widget_info QLabel#title {
+    color: #2a4b8d;  /* 深蓝标题 */
+    font: bold 18px "Microsoft YaHei";
+}
+
+/* 信息显示表格 QTableWidget */
+#widget_info QTableWidget {
+    background: #ffffff;
+    border: 1px solid #5d96d3;
+    gridline-color: #80b2ff;
+    selection-background-color: #cce4ff;
+    selection-color: #000;
+    font: 14px "Microsoft YaHei";
+}
+
+#widget_info QHeaderView::section {
+    background: #80b2ff;
+    color: #fff;
+    border: none;
+    padding: 4px;
+    font: bold 14px "Microsoft YaHei";
+}
+
+/* 信息窗口按钮 */
+#widget_info QPushButton {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #89f7fe,
+        stop:1 #66a6ff
+    );
+    border: 2px solid #5d96d3;
+    border-radius: 8px;
+    font: bold 14px "Microsoft YaHei";
+    color: #fff;
+    padding: 6px 16px;
+    min-width: 80px;
+}
+
+#widget_info QPushButton:hover {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #a6f9ff,
+        stop:1 #80b2ff
+    );
+}
+
+#widget_info QPushButton:pressed {
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #7ed4df,
+        stop:1 #5f8dd9
+    );
+}
+
+/* 顶部栏 */
+#widget_photo_top {
+    background-color: rgba(0, 40, 80, 220); /* 深蓝半透明 */
+    border-radius: 10px;
+    border: 1px solid cyan;
+}
+
+/* 顶部文字 */
+#label_photo {
+    color: cyan;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    qproperty-alignment: 'AlignCenter';
+}
+
+
+/* 设置 toolButton_photo */
+/* 鼠标悬停效果 */
+#toolButton_photo:hover {
+    border: 2px solid cyan;           /* 高亮边框 */
+    background-color: rgba(0, 255, 255, 50); /* 半透明覆盖 */
+}
+
+/* 按下效果 */
+#toolButton_photo:pressed {
+    border: 2px solid blue;
+    background-color: rgba(0, 0, 255, 50);
+}
 

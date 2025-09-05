@@ -24,5 +24,23 @@
         <file>src/smart/window_beijing.png</file>
         <file>src/smart/window_beijing_resized.png</file>
         <file>style.qss</file>
+        <file>src/tittle.png</file>
+        <file>src/qingwa.png</file>
+        <file>src/mario.png</file>
+        <file>src/mushroom_life.png</file>
+        <file>src/picture/1.png</file>
+        <file>src/picture/2.png</file>
+        <file>src/picture/3.png</file>
+        <file>src/picture/4.png</file>
+        <file>src/picture/5.png</file>
+        <file>src/picture/6.png</file>
+        <file>src/picture/7.png</file>
+        <file>src/picture/8.png</file>
+        <file>src/picture/exit.png</file>
+        <file>src/picture/last.png</file>
+        <file>src/picture/next.png</file>
+        <file>src/gif/1.gif</file>
+        <file>src/sliderpage_off.png</file>
+        <file>src/sliderpage_on.png</file>
     </qresource>
 </RCC>
