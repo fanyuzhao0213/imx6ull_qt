@@ -42,5 +42,49 @@
         <file>src/gif/1.gif</file>
         <file>src/sliderpage_off.png</file>
         <file>src/sliderpage_on.png</file>
+        <file>src/music/beijing.png</file>
+        <file>src/music/bg.png</file>
+        <file>src/music/bofang.png</file>
+        <file>src/music/diantai.png</file>
+        <file>src/music/fengmian.png</file>
+        <file>src/music/geci.png</file>
+        <file>src/music/guanbi.png</file>
+        <file>src/music/huakuai.png</file>
+        <file>src/music/hudong.png</file>
+        <file>src/music/jingyin.png</file>
+        <file>src/music/lishibofang.png</file>
+        <file>src/music/list1.png</file>
+        <file>src/music/more.png</file>
+        <file>src/music/name.png</file>
+        <file>src/music/new.png</file>
+        <file>src/music/next1.png</file>
+        <file>src/music/original1.png</file>
+        <file>src/music/score1.png</file>
+        <file>src/music/search.png</file>
+        <file>src/music/select.png</file>
+        <file>src/music/serivce1.png</file>
+        <file>src/music/shangyiqu.png</file>
+        <file>src/music/shunxu.png</file>
+        <file>src/music/stars.png</file>
+        <file>src/music/suiji.png</file>
+        <file>src/music/tianjia.png</file>
+        <file>src/music/tittle.png</file>
+        <file>src/music/top.png</file>
+        <file>src/music/tubiao.png</file>
+        <file>src/music/tuijian.png</file>
+        <file>src/music/type.png</file>
+        <file>src/music/volume1.png</file>
+        <file>src/music/xiayiqu.png</file>
+        <file>src/music/xiazai.png</file>
+        <file>src/music/xihuan.png</file>
+        <file>src/music/yinyue.png</file>
+        <file>src/music/zanting.png</file>
+        <file>src/music/zhuangban.png</file>
+        <file>src/music/zuidahua.png</file>
+        <file>src/music/zuixiaohua.png</file>
+        <file>src/music/sound.png</file>
+        <file>src/music/music.ini</file>
+        <file>src/music/3.mp3</file>
+        <file>src/music/danqu.png</file>
     </qresource>
 </RCC>

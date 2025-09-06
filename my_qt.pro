@@ -1,4 +1,4 @@
-QT       += core gui serialport virtualkeyboard
+QT       += core gui serialport virtualkeyboard multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    musicmodule.cpp \
     serialmodule.cpp \
     smartdevicemodule.cpp \
     widgets/arcgraph/arcgraph.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
+    musicmodule.h \
     serialmodule.h \
     smartdevicemodule.h \
     widgets/arcgraph/arcgraph.h \

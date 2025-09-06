@@ -11,9 +11,12 @@
 
 #include "serialmodule.h"
 #include "smartdevicemodule.h"
+#include "musicmodule.h"
 #include "widgets/arcgraph/arcgraph.h"
 #include "widgets/glowtext/glowtext.h"
 #include "slidepage/slidepage.h"            //滑动页面
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,6 +32,7 @@ public:
 
     void mainwindow_init();
     void photopage_init();
+    void musicpage_init();
 
     void loadPhotosToSlidePage();       // 加载图片到滑动页面
 
@@ -65,8 +69,37 @@ private slots:
     void on_Btn_6_clicked();
     void on_Btn_7_clicked();
 
+    void on_toolButton_xiazai_clicked();
+
+    void on_toolButton_mode_clicked();
+
+    void on_toolButton_last_clicked();
+
+    void on_toolButton_bofang_clicked();
+
+    void on_toolButton_next_clicked();
+
+    void on_toolButton_sound_clicked();
+
+    void on_toolButton_xihuan_clicked();
+
+    void on_toolButton_ci_clicked();
+
+
+    void onSongInfoUpdated(const QString &title,
+                           const QString &artist,
+                           const QString &composer,
+                           const QPixmap &cover);
+    void onDurationChanged(qint64 duration);
+    void onPositionChanged(qint64 position);
+
+    void sliderPressed();
+    void sliderReleased();
+    void sliderMoved(int value);
+
 private:
     Ui::MainWindow *ui;
+    bool m_sliderPressed = false; //音乐播放进度条拖动标记
     // ================= 初始化函数 =================
     void setButtonIcon(QToolButton *btn, const QString &iconPath);
     void initButtons();     ///< 初始化按钮属性（Checkable/默认状态）
@@ -74,6 +107,9 @@ private:
     void initPortList();  // 初始化串口列表
 
     QMovie *movie;          //gif效果
+
+    // MainWindow 成员变量
+    MusicPlayer *musicPlayer;
 
     smartDeviceModule *deviceModule;
     serialModule *g_serialModule;

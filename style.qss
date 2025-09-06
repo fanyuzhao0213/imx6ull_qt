@@ -630,3 +630,193 @@ QPushButton:disabled {
     background-color: rgba(0, 0, 255, 50);
 }
 
+
+/*MUSIC 相关*/
+#page_music {
+    border-radius: 10px;                /* 圆角 */
+    border: none;                       /* 去掉边框 */
+    background-image: url(:/src/picture/bg.png); /* 背景图 */
+    background-repeat: no-repeat;       /* 不平铺 */
+    background-position: center;        /* 居中显示 */
+    background-color: rgb(24, 25, 25);  /* 背景图加载失败时显示的颜色 */
+}
+
+/* ---------------- 图标 + 文字按钮 ---------------- */
+#toolButton_search, #toolButton_more, #toolButton_hudong, #toolButton_select {
+    border: none;
+    border-radius: 10px;
+    background-position: left center; /* 图标靠左 */
+    background-repeat: no-repeat;
+    padding-left: 20px;              /* 给文字留空间 */
+    font: bold 14px "Microsoft YaHei";
+    color: white;
+}
+
+/* 单独按钮的图片资源 */
+#toolButton_search {
+    background-image: url(:/src/music/search.png);
+}
+#toolButton_more {
+    background-image: url(:/src/music/more.png);
+}
+#toolButton_hudong {
+    background-image: url(:/src/music/hudong.png);
+}
+#toolButton_select {
+    background-image: url(:/src/music/select.png);
+}
+
+#toolButton_tittle, #toolButton_exit {
+    border: none;
+    border-radius: 10px;
+    background-position: center;   /* 图标居中 */
+    background-repeat: no-repeat;
+    padding: 0;                     /* 去掉文字留白 */
+}
+
+
+#toolButton_tittle {
+    background-image: url(:/src/music/tittle.png);
+}
+
+
+/* 按下效果 */
+#toolButton_exit:pressed, #toolButton_tittle:pressed,
+#toolButton_search:pressed, #toolButton_more:pressed,
+#toolButton_hudong:pressed, #toolButton_select:pressed {
+    background-color: rgba(0,0,0,30);
+}
+
+
+
+
+/* ========== 通用按钮样式 ========== */
+#toolButton_name,
+#toolButton_type,
+#toolButton_toplist,
+#toolButton_new,
+#toolButton_stars {
+    background: transparent;       /* 背景透明，显示父控件背景 */
+    color: #aecbc3;                /* 文字颜色 */
+    font: bold 16px "Microsoft YaHei"; /* 文字字体和大小 */
+    qproperty-toolButtonStyle: 2;  /* 图标在上，文字在下 */
+}
+
+#pushButton_fengmian {
+    border: none;                                /* 去掉边框 */
+    border-image: url(:/src/music/fengmian.png) 0 0 0 0 stretch stretch; /* 图片拉伸填满 */
+    background-repeat: no-repeat;
+    background-position: center;                 /* 图标居中 */
+    color: transparent;                          /* 不显示文字 */
+}
+
+/* 鼠标悬停效果 */
+#toolButton_fengmian,
+#toolButton_name,
+#toolButton_type,
+#toolButton_toplist,
+#toolButton_new,
+#toolButton_stars :hover {
+    background-color: #517175;
+}
+
+/* 鼠标按下效果 */
+#toolButton_fengmian,
+#toolButton_name,
+#toolButton_type,
+#toolButton_toplist,
+#toolButton_new,
+#toolButton_stars :pressed {
+    background-color: #517175;
+}
+
+/* 文字样式 */
+#toolButton_fengmian,
+#toolButton_name,
+#toolButton_type,
+#toolButton_toplist,
+#toolButton_new,
+#toolButton_stars  {
+    padding-top: 5px; /* 图标与文字之间留一点空隙 */
+}
+
+/*最下方按钮模式*/
+#toolButton_sound,
+#toolButton_bofang,
+#toolButton_ci,
+#toolButton_last,
+#toolButton_mode,
+#toolButton_next,
+#toolButton_xiazai,
+#toolButton_xihuan{
+    background: transparent;       /* 背景透明，显示父控件背景 */
+    color: #aecbc3;                /* 文字颜色 */
+    font: bold 12px "Microsoft YaHei"; /* 文字字体和大小 */
+    qproperty-toolButtonStyle: 2;  /* 图标在上，文字在下 */
+}
+
+
+/* --------------------- 音乐播放器 horizontalSlider_music 样式 --------------------- */
+/* --------------------- 滑槽（轨道） --------------------- */
+#horizontalSlider_music::groove:horizontal {
+    border: 1px solid #222;       /* 外边框 */
+    height: 8px;                   /* 轨道高度 */
+    background: #000000;           /* 背景黑色 */
+    border-radius: 4px;            /* 圆角 */
+}
+
+/* --------------------- 已播放部分 --------------------- */
+#horizontalSlider_music::sub-page:horizontal {
+    background: #00ffff;           /* 亮青色表示已播放 */
+    border-radius: 4px;
+}
+
+/* --------------------- 未播放部分 --------------------- */
+#horizontalSlider_music::add-page:horizontal {
+    background: #333333;           /* 深灰色表示未播放 */
+    border-radius: 4px;
+}
+
+/* --------------------- 滑块（handle） --------------------- */
+#horizontalSlider_music::handle:horizontal {
+    background: #00ffff;           /* 滑块颜色 */
+    border: 1px solid #00bbff;    /* 滑块边框 */
+    width: 14px;
+    height: 14px;
+    margin: -3px 0;                /* 避免滑块超出轨道 */
+    border-radius: 7px;            /* 完全圆形 */
+}
+
+/* --------------------- 鼠标悬停效果 --------------------- */
+#horizontalSlider_music::handle:horizontal:hover {
+    background: #66ffff;           /* 高亮颜色 */
+    border: 1px solid #00ffff;
+}
+
+/* --------------------- 禁用样式 --------------------- */
+#horizontalSlider_music:disabled {
+    background-color: #333;        /* 滑槽禁用背景 */
+}
+
+#horizontalSlider_music::handle:disabled {
+    background-color: #555;        /* 滑块禁用颜色 */
+}
+
+#horizontalSlider_music::sub-page:disabled {
+    background-color: #555;
+}
+
+#horizontalSlider_music::add-page:disabled {
+    background-color: #222;
+}
+
+
+/* 播放进度时间显示 */
+#label_silder {
+    color: #00ffff;          /* 文字颜色亮青色 */
+    font-size: 12pt;         /* 字体大小 */
+    font-weight: bold;       /* 加粗 */
+    background-color: #000;  /* 背景黑色 */
+    border-radius: 3px;      /* 圆角 */
+    padding: 2px 4px;        /* 内边距 */
+}

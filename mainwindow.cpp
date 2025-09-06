@@ -17,6 +17,7 @@
 
 
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -51,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainwindow_init();          //主窗口初始化
 
-    ui->stackedWidget->setCurrentWidget(ui->page_idle);
+    ui->stackedWidget->setCurrentWidget(ui->page_music);
 
     deviceModule = new smartDeviceModule();
     g_serialModule = new serialModule(this);
@@ -118,6 +119,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     //photo page加载
     photopage_init();
+    //music page加载
+    musicpage_init();
+
+
 }
 
 MainWindow::~MainWindow()
@@ -127,9 +132,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadPhotosToSlidePage()
 {
-    // 1️⃣ 资源目录前缀
-    QString resourcePrefix = ":/src/picture";
-
     // 2️⃣ 手动生成资源文件列表（支持 1.png, 2.png ...）
     QStringList fileList = {
         ":/src/picture/1.png",
@@ -245,6 +247,100 @@ void MainWindow::photopage_init()
     ui->toolButton_photo->setIconSize(ui->toolButton_photo->size());
     ui->toolButton_photo->setStyleSheet("border: none; border-radius: 10px;");
 }
+
+void MainWindow::musicpage_init()
+{
+    ui->toolButton_select->setText("Select Songs");
+    ui->toolButton_search->setText("Search");
+    ui->toolButton_more->setText("More");
+    ui->toolButton_hudong->setText("Interation");
+
+    // -------- pushButton_name --------
+    ui->toolButton_name->setIcon(QIcon(":/src/music/name.png"));
+    ui->toolButton_name->setIconSize(QSize(150, 125)); // 图标大小
+    ui->toolButton_name->setText("Name of song");
+    ui->toolButton_name->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); // 文字在下
+
+
+    // -------- toolButton_type --------
+    ui->toolButton_type->setIcon(QIcon(":/src/music/type.png"));
+    ui->toolButton_type->setIconSize(QSize(150, 125));
+    ui->toolButton_type->setText("Type");
+    ui->toolButton_type->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); // 文字在下
+
+    // -------- toolButton_toplist --------
+    ui->toolButton_toplist->setIcon(QIcon(":/src/music/top.png"));
+    ui->toolButton_toplist->setIconSize(QSize(150, 125));
+    ui->toolButton_toplist->setText("TOP list");
+    ui->toolButton_toplist->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); // 文字在下
+    // -------- toolButton_new --------
+    ui->toolButton_new->setIcon(QIcon(":/src/music/new.png"));
+    ui->toolButton_new->setIconSize(QSize(150, 125));
+    ui->toolButton_new->setText("NEW");
+    ui->toolButton_new->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); // 文字在下
+
+    // -------- toolButton_stars --------
+    ui->toolButton_stars->setIcon(QIcon(":/src/music/stars.png"));
+    ui->toolButton_stars->setIconSize(QSize(150, 125));
+    ui->toolButton_stars->setText("Stars");
+    ui->toolButton_stars->setToolButtonStyle(Qt::ToolButtonTextUnderIcon); // 文字在下
+
+    //toolButton_exit
+    ui->toolButton_exit->setIcon(QIcon(":/src/music/guanbi.png"));
+    ui->toolButton_exit->setIconSize(QSize(40, 40)); // 图标大小
+
+    //toolButton_bofang
+    ui->toolButton_bofang->setIcon(QIcon(":/src/music/bofang.png"));
+    ui->toolButton_bofang->setIconSize(QSize(40, 40)); // 图标大小
+
+    //toolButton_sound
+    ui->toolButton_sound->setIcon(QIcon(":/src/music/sound.png"));
+    ui->toolButton_sound->setIconSize(QSize(40, 40)); // 图标大小
+
+    //#toolButton_ci,
+    ui->toolButton_ci->setIcon(QIcon(":/src/music/geci.png"));
+    ui->toolButton_ci->setIconSize(QSize(40, 40)); // 图标大小
+
+    //#toolButton_last,
+    ui->toolButton_last->setIcon(QIcon(":/src/music/shangyiqu.png"));
+    ui->toolButton_last->setIconSize(QSize(40, 40)); // 图标大小
+
+    //#toolButton_mode,
+    ui->toolButton_mode->setIcon(QIcon(":/src/music/shunxu.png"));
+    ui->toolButton_mode->setIconSize(QSize(40, 40)); // 图标大小
+
+    //#toolButton_next,
+    ui->toolButton_next->setIcon(QIcon(":/src/music/xiayiqu.png"));
+    ui->toolButton_next->setIconSize(QSize(40, 40)); // 图标大小
+
+    //#toolButton_xiazai,
+    ui->toolButton_xiazai->setIcon(QIcon(":/src/music/xiazai.png"));
+    ui->toolButton_xiazai->setIconSize(QSize(40, 40)); // 图标大小
+
+    //#toolButton_xihuan,
+    ui->toolButton_xihuan->setIcon(QIcon(":/src/music/xihuan.png"));
+    ui->toolButton_xihuan->setIconSize(QSize(40, 40)); // 图标大小
+
+    //初始播放时间显示为空
+    ui->label_silder->setText("");
+    // 创建播放器对象
+    musicPlayer = new MusicPlayer(this);
+    // 从配置文件加载播放列表（磁盘 + 资源）
+    musicPlayer->loadFromConfig(":/src/music/music.ini");
+    musicPlayer->setVolume(50);
+    musicPlayer->play();
+    ui->toolButton_bofang->setIcon(QIcon(":/src/music/zanting.png"));
+
+    // ---------------- 信号槽连接 ----------------
+    connect(musicPlayer, &MusicPlayer::durationChanged, this, &MainWindow::onDurationChanged);
+    connect(musicPlayer, &MusicPlayer::positionChanged, this, &MainWindow::onPositionChanged);
+    connect(musicPlayer, &MusicPlayer::songInfoUpdated, this, &MainWindow::onSongInfoUpdated);
+
+    connect(ui->horizontalSlider_music, &QSlider::sliderPressed, this, &MainWindow::sliderPressed);
+    connect(ui->horizontalSlider_music, &QSlider::sliderReleased, this, &MainWindow::sliderReleased);
+    connect(ui->horizontalSlider_music, &QSlider::sliderMoved, this, &MainWindow::sliderMoved);
+}
+
 
 void MainWindow::initButtons()
 {
@@ -768,3 +864,195 @@ void MainWindow::on_Btn_7_clicked() {
 
 
 
+/*Music 界面相关按钮操作*/
+// ------------------- 下载按钮 -------------------
+void MainWindow::on_toolButton_xiazai_clicked()
+{
+    qDebug() << "[UI] 点击下载按钮";
+    // TODO: 弹出下载对话框或执行下载逻辑
+}
+
+// ------------------- 播放模式切换 -------------------
+void MainWindow::on_toolButton_mode_clicked()
+{
+    static uint8_t mode = 0;
+    mode = (mode + 1) % 3;
+    qDebug() << "mode: " << mode <<endl;
+    // 0 = 顺序播放
+    // 1 = 单曲循环
+    // 2 = 随机播放
+    switch (mode) {
+    case 0:
+        ui->toolButton_mode->setIcon(QIcon(":/src/music/shunxu.png"));
+        break;
+    case 1:
+        ui->toolButton_mode->setIcon(QIcon(":/src/music/danqu.png"));
+        break;
+    case 2:
+        ui->toolButton_mode->setIcon(QIcon(":/src/music/suiji.png"));
+        break;
+    default:
+        ui->toolButton_mode->setIcon(QIcon(":/src/music/shunxu.png"));
+        break;
+    }
+
+    if (musicPlayer) {
+        musicPlayer->togglePlaybackMode();  // 交给 MusicPlayer 处理
+    }
+}
+
+// ------------------- 上一首 -------------------
+void MainWindow::on_toolButton_last_clicked()
+{
+    qDebug() << "[UI] 点击上一首按钮";
+    musicPlayer->previous();
+}
+
+// ------------------- 播放/暂停 -------------------
+void MainWindow::on_toolButton_bofang_clicked()
+{
+    static bool checked;
+    if(checked)
+    {
+        checked = 0;
+        ui->toolButton_bofang->setIcon(QIcon(":/src/music/zanting.png"));
+    }else{
+        checked = 1;
+        ui->toolButton_bofang->setIcon(QIcon(":/src/music/bofang.png"));
+    }
+
+    if (musicPlayer) {
+        musicPlayer->togglePlay();  // 交给 MusicPlayer 处理
+    }
+}
+
+// ------------------- 下一首 -------------------
+void MainWindow::on_toolButton_next_clicked()
+{
+    qDebug() << "[UI] 点击下一首按钮";
+    musicPlayer->next();
+}
+
+// ------------------- 音量按钮 -------------------
+void MainWindow::on_toolButton_sound_clicked()
+{
+    if (!musicPlayer) return;
+
+    static int previousVolume = 50;
+    int currentVolume = musicPlayer->getVolume();
+
+    if (currentVolume > 0) {
+        previousVolume = currentVolume;
+        musicPlayer->setVolume(0);  // 静音
+        ui->toolButton_sound->setIcon(QIcon(":/src/music/jingyin.png"));
+        qDebug() << "[UI] 静音，保存音量:" << previousVolume;
+    } else {
+        ui->toolButton_sound->setIcon(QIcon(":/src/music/sound.png"));
+        musicPlayer->setVolume(previousVolume);  // 恢复音量
+        qDebug() << "[UI] 恢复音量:" << previousVolume;
+    }
+}
+
+// ------------------- 喜欢按钮 -------------------
+void MainWindow::on_toolButton_xihuan_clicked()
+{
+    qDebug() << "[UI] 点击喜欢按钮";
+    // TODO: 添加当前播放歌曲到收藏列表
+}
+
+// ------------------- 歌词显示按钮 -------------------
+void MainWindow::on_toolButton_ci_clicked()
+{
+    qDebug() << "[UI] 点击歌词按钮";
+    // TODO: 显示歌词面板或切换歌词显示状态
+}
+
+// -------------------- music槽函数实现 --------------------
+// durationChanged 信号槽：总时长变化
+void MainWindow::onDurationChanged(qint64 duration)
+{
+    // 设置Slider最大值为总时长（毫秒）
+    ui->horizontalSlider_music->setMaximum(static_cast<int>(duration));
+
+    // 初始化显示当前时间 / 总时间
+    QTime totalTime(0, 0, 0);
+    totalTime = totalTime.addMSecs(duration);
+
+    QTime currentTime(0, 0, 0);
+    currentTime = currentTime.addMSecs(0); // 当前时间为0
+
+    // 在一个label上显示：当前时间 / 总时间
+    ui->label_silder ->setText(QString("%1 / %2")
+        .arg(currentTime.toString("mm:ss"))
+        .arg(totalTime.toString("mm:ss")));
+}
+
+// positionChanged 信号槽：播放位置变化
+void MainWindow::onPositionChanged(qint64 position)
+{
+    // 如果用户没有拖动Slider，则更新Slider的值
+    if (!m_sliderPressed)
+        ui->horizontalSlider_music->setValue(static_cast<int>(position));
+
+    // 获取总时长
+    int totalDuration = ui->horizontalSlider_music->maximum();
+
+    QTime currentTime(0, 0, 0);
+    currentTime = currentTime.addMSecs(position);
+
+    QTime totalTime(0, 0, 0);
+    totalTime = totalTime.addMSecs(totalDuration);
+
+    // 更新label显示：当前时间 / 总时间
+    ui->label_silder->setText(QString("%1 / %2")
+        .arg(currentTime.toString("mm:ss"))
+        .arg(totalTime.toString("mm:ss")));
+}
+
+// Slider 拖动按下
+void MainWindow::sliderPressed()
+{
+    m_sliderPressed = true; // 标记正在拖动
+}
+
+// Slider 拖动释放
+void MainWindow::sliderReleased()
+{
+    m_sliderPressed = false; // 标记结束拖动
+    // 更新播放器位置
+    musicPlayer->seek(ui->horizontalSlider_music->value());
+}
+
+
+// Slider 拖动中
+void MainWindow::sliderMoved(int value)
+{
+    // 拖动时动态更新label显示
+    QTime currentTime(0, 0, 0);
+    currentTime = currentTime.addMSecs(value);
+
+    int totalDuration = ui->horizontalSlider_music->maximum();
+    QTime totalTime(0, 0, 0);
+    totalTime = totalTime.addMSecs(totalDuration);
+
+    ui->label_silder->setText(QString("%1 / %2")
+        .arg(currentTime.toString("mm:ss"))
+        .arg(totalTime.toString("mm:ss")));
+}
+void MainWindow::onSongInfoUpdated(const QString &title,
+                                   const QString &artist,
+                                   const QString &composer,
+                                   const QPixmap &cover)
+{
+    // 歌手和歌名为空时显示“无”
+    QString artistText = artist.isEmpty() ? "<span style='color:#00ffff;'>演唱：</span><span style='color:#ffffff;'>无</span>"
+                                          : QString("<span style='color:#00ffff;'>演唱：</span><span style='color:#ffffff;'>%1</span>").arg(artist);
+    QString titleText  = title.isEmpty() ? "<span style='color:#00ffff;'>歌名：</span><span style='color:#ffffff;'>无</span>"
+                                         : QString("<span style='color:#00ffff;'>歌名：</span><span style='color:#ffffff;'>%1</span>").arg(title);
+
+    ui->label_author->setText(artistText);
+    ui->label_name->setText(titleText);
+
+    if (!cover.isNull())
+        ui->toolButton_name->setIcon(QIcon(cover));
+}
