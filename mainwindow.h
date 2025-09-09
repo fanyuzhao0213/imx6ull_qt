@@ -12,6 +12,8 @@
 #include "serialmodule.h"
 #include "smartdevicemodule.h"
 #include "musicmodule.h"
+#include "baidu_ocr.h"    // 车牌识别类
+
 #include "widgets/arcgraph/arcgraph.h"
 #include "widgets/glowtext/glowtext.h"
 #include "slidepage/slidepage.h"            //滑动页面
@@ -97,6 +99,13 @@ private slots:
     void sliderReleased();
     void sliderMoved(int value);
 
+    /**
+     * 车牌识别相关函数
+     */
+    void onRecognitionSuccess(const QString &plate);//识别成功回调
+    void onRecognitionError(const QString &errorMsg);//识别失败回调
+    void on_pushButton_ocr_clicked();       //点击按钮 - 打开照片
+
 private:
     Ui::MainWindow *ui;
     bool m_sliderPressed = false; //音乐播放进度条拖动标记
@@ -105,7 +114,7 @@ private:
     void initButtons();     ///< 初始化按钮属性（Checkable/默认状态）
 	void initSerial();     ///< 初始化串口界面
     void initPortList();  // 初始化串口列表
-
+    void initBaiduOcr();    //百度车牌识别初始化界面
     QMovie *movie;          //gif效果
 
     // MainWindow 成员变量
@@ -113,5 +122,10 @@ private:
 
     smartDeviceModule *deviceModule;
     serialModule *g_serialModule;
+    /**
+     * 车牌识别相关
+     */
+    BaiduLicensePlateOCR *ocr;  // OCR 识别对象
+
 };
 #endif // MAINWINDOW_H

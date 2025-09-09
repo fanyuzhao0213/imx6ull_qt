@@ -14,8 +14,10 @@
 #include <QMenu>
 #include <QDir>
 #include <QFileInfoList>
+#include <QFileDialog>
+#include <QBuffer>
 
-
+#include <QSslSocket>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -52,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainwindow_init();          //主窗口初始化
 
-    ui->stackedWidget->setCurrentWidget(ui->page_music);
+    ui->stackedWidget->setCurrentWidget(ui->page_baidu_ocr);
 
     deviceModule = new smartDeviceModule();
     g_serialModule = new serialModule(this);
@@ -121,8 +123,8 @@ MainWindow::MainWindow(QWidget *parent)
     photopage_init();
     //music page加载
     musicpage_init();
-
-
+    //baidu_ocr page加载
+    initBaiduOcr();
 }
 
 MainWindow::~MainWindow()
@@ -632,6 +634,29 @@ void MainWindow::initPortList()
     }
 }
 
+void MainWindow::initBaiduOcr()
+{
+    // 初始化 OCR 对象
+    ocr = new BaiduLicensePlateOCR(this);
+
+    // 设置百度 API Key 和 Secret Key
+    ocr->setApiKey("MG3WO7c6x7AztGyakAucyLqm");       // 你的 API Key
+    ocr->setSecretKey("AnEAgOFdcKJ6qCvXPLlXNjlDiDXpa5uT"); // 你的 Secret Key
+
+    // 绑定 OCR 识别结果信号
+    connect(ocr, &BaiduLicensePlateOCR::recognitionFinished,
+            this, &MainWindow::onRecognitionSuccess);
+    connect(ocr, &BaiduLicensePlateOCR::recognitionError,
+            this, &MainWindow::onRecognitionError);
+
+    // 设置 label_photo 适应图片
+    ui->label_ocr_photo->setScaledContents(true);
+
+    ui->pushButton_ocr->setText("打开照片");
+    // 设置初始提示
+    ui->label_ocr_result->setText("请打开一张照片进行识别!");
+}
+
 /**
  * @brief 串口接收数据槽
  */
@@ -1055,4 +1080,50 @@ void MainWindow::onSongInfoUpdated(const QString &title,
 
     if (!cover.isNull())
         ui->toolButton_name->setIcon(QIcon(cover));
+}
+
+/* OCR 车牌识别相关  */
+/**
+ * @brief 点击按钮 - 打开照片
+ */
+void MainWindow::on_pushButton_ocr_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, "选择车牌照片", "", "Images (*.png *.jpg *.jpeg)");
+    if (filePath.isEmpty()) return;
+
+    // 显示图片
+    QPixmap pix(filePath);
+    if (!pix.isNull()) {
+        // 让 QLabel 自动缩放图片，不失真
+        ui->label_ocr_photo->setScaledContents(true);
+        ui->label_ocr_photo->setPixmap(pix);
+    }
+
+    // 读取文件到 QByteArray
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly)) return;
+    QByteArray imageData = file.readAll();
+    file.close();
+
+    // 调用百度OCR
+    ocr->recognizeLicensePlate(imageData);
+}
+
+
+/**
+ * @brief OCR 识别成功回调
+ */
+void MainWindow::onRecognitionSuccess(const QString &plate)
+{
+    qDebug() << "[OCR] 识别成功:" << plate;
+    ui->label_ocr_result->setText(QString("识别结果：%1").arg(plate));
+}
+
+/**
+ * @brief OCR 识别失败回调
+ */
+void MainWindow::onRecognitionError(const QString &errorMsg)
+{
+    qDebug() << "[OCR] 识别失败:" << errorMsg;
+    ui->label_ocr_result->setText(QString("识别失败：%1").arg(errorMsg));
 }

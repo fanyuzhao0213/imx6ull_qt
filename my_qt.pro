@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    baidu_ocr.cpp \
     main.cpp \
     mainwindow.cpp \
     musicmodule.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     slidepage/slidepage.cpp
 
 HEADERS += \
+    baidu_ocr.h \
     mainwindow.h \
     musicmodule.h \
     serialmodule.h \

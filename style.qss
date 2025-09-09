@@ -820,3 +820,63 @@ QPushButton:disabled {
     border-radius: 3px;      /* 圆角 */
     padding: 2px 4px;        /* 内边距 */
 }
+
+
+
+/*车牌识别*/
+/* -------------------- 上方容器 widget -------------------- */
+#widget_ocr_top {
+    background-color: #111111;      /* 深黑色背景 */
+    border-radius: 10px;            /* 圆角 */
+    padding: 10px;
+}
+
+/* -------------------- 打开照片按钮 -------------------- */
+#pushButton_ocr {
+    background-color: #222222;         /* 深灰色背景 */
+    color: #00ffff;                    /* 青色字体 */
+    border: 1px solid #00bbff;         /* 青色边框 */
+    border-radius: 8px;                /* 圆角 */
+    padding: 8px 16px;                 /* 内边距 */
+
+    /* 字体设置 */
+    font-family: "Microsoft YaHei";    /* 使用微软雅黑 */
+    font-size: 16px;                   /* 字号 */
+    font-weight: 600;                  /* 半粗体 */
+
+    /* 阴影效果，让按钮更立体 */
+    text-shadow: 0 0 5px #00bbff;
+}
+
+/* 鼠标悬停 */
+#pushButton_ocr:hover {
+    background-color: #333333;         /* 稍微亮一点 */
+    border: 1px solid #00ffff;         /* 边框变亮 */
+    color: #00ffff;
+}
+
+/* 按下状态 */
+#pushButton_ocr:pressed {
+    background-color: #111111;         /* 更暗 */
+    border: 1px solid #0088cc;         /* 边框更深 */
+}
+
+
+/* -------------------- 车牌结果 label -------------------- */
+#label_ocr_result {
+    color: #00ffff;                 /* 亮蓝色字体 */
+    font-weight: bold;
+    font-size: 16px;
+    qproperty-alignment: 'AlignCenter';  /* 居中显示 */
+    border: 1px solid #00bbff;
+    border-radius: 6px;
+    background-color: #222222;      /* 背景深灰 */
+    padding: 6px;
+}
+
+/* -------------------- 显示照片 label -------------------- */
+#label_ocr_photo {
+    border: 1px solid #333333;      /* 边框 */
+    border-radius: 8px;
+    background-color: #111111;      /* 背景黑色 */
+}
